@@ -166,9 +166,13 @@
 
   h3 { color: #cdeeda; margin: 1.6rem 0 0.5rem; font-size: 1.1rem; }
   section p { color: #c2d4c9; }
-  section p, section li { max-width: 70ch; }
+  section p, section li { max-width: 80ch; }
 
   .cols { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); }
+
+  /* The chain reads as a sequence: two cards per row, never auto-fit */
+  .cols.chain { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 38rem) { .cols.chain { grid-template-columns: 1fr; } }
 
   .card {
     border: 1px solid var(--line);
@@ -180,6 +184,8 @@
   .card:hover { border-color: rgba(111, 227, 161, 0.5); transform: translateY(-2px); }
   .card h4 { margin: 0 0 0.4rem; color: #d9f2e3; font-size: 1rem; }
   .card p { margin: 0; font-size: 0.92rem; color: #a9c0b1; }
+  .card h3 { margin: 0 0 0.5rem; font-size: 1.05rem; color: #d9f2e3; }
+  .card ul.topics { columns: 1; }
 
   .chain { counter-reset: link; }
   .chain .card { position: relative; }
@@ -255,7 +261,7 @@
   <h1>Digital Dissident</h1>
   <p class="tagline">A devroom for every link in the chain that keeps people communicating under digital repression: getting online, communicating privately, reporting safely, publishing without exposure.</p>
   <div class="cta-box">
-    <p><strong>Call for Participation is open.</strong> FOSDEM 2027 takes place on <strong>30–31 January 2027</strong> at the ULB Solbosch campus in Brussels.</p>
+    <p><strong>Call for Participation is open.</strong> The devroom takes place on <strong>Saturday morning, 30 January 2027</strong> at the ULB Solbosch campus in Brussels. Submissions close <strong>30 November 2026, 23:59 UTC</strong>.</p>
     <a class="btn" href="https://fosdem.org/submit" rel="noopener">Submit your talk →</a>
     <div class="roomnote">
       <strong>Important:</strong> when you submit on <a href="https://fosdem.org/submit" rel="noopener">fosdem.org/submit</a>, you must select the <strong>“Digital Dissident” devroom</strong> as the track. Proposals submitted without a devroom selection never reach the organisers — choose our room, or we cannot consider your talk.
@@ -283,50 +289,67 @@
     <h2><span class="n">02</span>Call for Participation</h2>
     <p>We want technical talks from people who <strong>build, operate, attack and measure</strong> the systems that make it possible to communicate, report, publish and blow the whistle from a digitally hostile environment. We welcome talks on, but not limited to:</p>
 
-    <h3>Getting online</h3>
-    <ul class="topics">
-      <li>Obfuscation vs TLS/QUIC fingerprinting, active probing and protocol allow-listing</li>
-      <li>Bridge and proxy distribution under enumeration attacks</li>
-      <li>Operating during national shutdowns: mesh, satellite, delay-tolerant networking</li>
-      <li>Running a VPN or proxy service in a heavily censored country</li>
-    </ul>
+    <div class="cols">
 
-    <h3>Communicating privately</h3>
-    <ul class="topics">
-      <li>Mixnets, onion routing and metadata-resistant transports</li>
-      <li>Decentralised, federated and email-based messaging in the real world</li>
-      <li>Push notifications, contact discovery and phone-number identity leaks in “secure” messengers</li>
-      <li>Interoperability between anonymity networks, messengers and circumvention layers</li>
-    </ul>
+      <div class="card">
+        <h3>Getting online</h3>
+        <ul class="topics">
+          <li>Obfuscation vs TLS/QUIC fingerprinting, active probing and protocol allow-listing</li>
+          <li>Bridge and proxy distribution under enumeration attacks</li>
+          <li>Operating during national shutdowns: mesh, satellite, delay-tolerant networking</li>
+          <li>Running a VPN or proxy service in a heavily censored country</li>
+        </ul>
+      </div>
 
-    <h3>Reporting, publishing &amp; whistleblowing</h3>
-    <ul class="topics">
-      <li>Secure submission systems and source protection</li>
-      <li>Metadata scrubbing, provenance and authenticity without deanonymising the author</li>
-      <li>Censorship-resistant publishing and hosting</li>
-      <li>Digital-security workflows for newsrooms and human-rights organisations</li>
-    </ul>
+      <div class="card">
+        <h3>Communicating privately</h3>
+        <ul class="topics">
+          <li>Mixnets, onion routing and metadata-resistant transports</li>
+          <li>Decentralised, federated and email-based messaging in the real world</li>
+          <li>Push notifications, contact discovery and phone-number identity leaks in “secure” messengers</li>
+          <li>Interoperability between anonymity networks, messengers and circumvention layers</li>
+        </ul>
+      </div>
 
-    <h3>Devices &amp; operational security</h3>
-    <ul class="topics">
-      <li>Hardened and amnesic operating systems, seizure and border-crossing scenarios</li>
-      <li>Forensic resistance, duress features, secure backups</li>
-      <li>Supply-chain trust when app stores and package mirrors are blocked</li>
-    </ul>
+      <div class="card">
+        <h3>Reporting, publishing &amp; whistleblowing</h3>
+        <ul class="topics">
+          <li>Secure submission systems and source protection</li>
+          <li>Metadata scrubbing, provenance and authenticity without deanonymising the author</li>
+          <li>Censorship-resistant publishing and hosting</li>
+          <li>Digital-security workflows for newsrooms and human-rights organisations</li>
+        </ul>
+      </div>
 
-    <h3>People, usability &amp; evidence</h3>
-    <ul class="topics">
-      <li>Onboarding for users under stress, safe defaults</li>
-      <li>Threat modelling for at-risk groups, lessons from the field</li>
-      <li>Censorship measurement, open data, reproducible research</li>
-      <li>How state adversaries actually deanonymise and detect users</li>
-    </ul>
+      <div class="card">
+        <h3>Devices &amp; operational security</h3>
+        <ul class="topics">
+          <li>Hardened and amnesic operating systems, seizure and border-crossing scenarios</li>
+          <li>Forensic resistance, duress features, secure backups</li>
+          <li>Supply-chain trust when app stores and package mirrors are blocked</li>
+        </ul>
+      </div>
 
-    <h3>Digital sovereignty <small>(secondary theme)</small></h3>
-    <ul class="topics">
-      <li>Reducing dependence on Big Tech platforms, app stores, cloud, push and identity providers</li>
-      <li>Self-hosted and community-run alternatives that survive political pressure</li>
-    </ul>
+      <div class="card">
+        <h3>People, usability &amp; evidence</h3>
+        <ul class="topics">
+          <li>Onboarding for users under stress, safe defaults</li>
+          <li>Threat modelling for at-risk groups, lessons from the field</li>
+          <li>Censorship measurement, open data, reproducible research</li>
+          <li>How state adversaries actually deanonymise and detect users</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Digital sovereignty <small>(secondary theme)</small></h3>
+        <ul class="topics">
+          <li>Reducing dependence on Big Tech platforms, app stores, cloud, push and identity providers</li>
+          <li>Self-hosted and community-run alternatives that survive political pressure</li>
+          <li>Legal and infrastructure risks of centralisation: sanctions, forced compliance, lock-in</li>
+        </ul>
+      </div>
+
+    </div>
   </section>
 
   <section id="criteria">
@@ -351,18 +374,31 @@
 
     <h3>Formats</h3>
     <div class="formats">
-      <div class="format"><b>20–30 min</b><span>Technical talks — the programme of the devroom</span></div>
+      <div class="format"><b>10 min</b><span>Lightning talks — quick project introductions and status updates</span></div>
+      <div class="format"><b>10–30 min</b><span>Flexible slots, all times include Q&amp;A — leave room for the discussion</span></div>
       <div class="format"><b>Open discussion</b><span>Closing session on interoperability gaps and shared next steps</span></div>
     </div>
+
+    <h3>Important dates</h3>
+    <ul class="topics">
+      <li><strong>30 November 2026</strong> — submission deadline (23:59 UTC)</li>
+      <li><strong>7 December 2026</strong> — speakers notified</li>
+      <li><strong>14 December 2026</strong> — final schedule announced</li>
+      <li><strong>30 January 2027</strong> — Digital Dissident devroom, Saturday morning</li>
+    </ul>
+
+    <h3>How to submit</h3>
+    <p>Submit through <a href="https://fosdem.org/submit" rel="noopener">fosdem.org/submit</a> and select the <strong>“Digital Dissident”</strong> track. Include a talk title, an abstract (one or two paragraphs), a short speaker bio, and links to related code, projects or previous talks — a photo is encouraged. State your preferred duration (10–30 minutes, including Q&amp;A) in the submission notes, and submit only to the most appropriate devroom rather than the same talk to multiple tracks. Unsure whether your topic fits? Reach out to us first (see the contact below).</p>
+    <p>Please make sure you can attend FOSDEM in person and deliver your talk if it is accepted. Our schedule is tight, and late cancellations leave empty slots after we have had to turn away many strong proposals. Unfortunately, we cannot offer travel funding for speakers.</p>
   </section>
 
   <section id="fosdem">
     <h2><span class="n">04</span>FOSDEM 2027</h2>
-    <p>FOSDEM is a free event for open source software developers to meet, share ideas and collaborate. Every year thousands of developers from all over the world gather at the ULB Solbosch campus in Brussels. It hosts dozens of concurrent devrooms, a main track, keynotes, lightning talks, stands, and birds-of-a-feather sessions — plus FOSDEM Fringe events throughout the city during the surrounding week.</p>
+    <p>FOSDEM is a free event for open source software developers to meet, share ideas and collaborate. Every year thousands of developers from all over the world gather at the ULB Solbosch campus in Brussels. The 2027 edition hosts <strong>77 devrooms</strong> — including, for the first time, this one — alongside a main track, keynotes, lightning talks, stands, and birds-of-a-feather sessions, plus FOSDEM Fringe events throughout the city during the surrounding week.</p>
     <div class="stats">
       <div class="stat"><b>8k+</b><span>hackers</span></div>
       <div class="stat"><b>77</b><span>devrooms</span></div>
-      <div class="stat"><b>96</b><span>stands</span></div>
+      <div class="stat"><b>96</b><span>stands (FOSDEM 2026)</span></div>
       <div class="stat"><b>0€</b><span>admission</span></div>
     </div>
     <p style="margin-top:1.5rem"><a href="https://fosdem.org/2027/" rel="noopener">Visit the FOSDEM website →</a></p>
@@ -382,6 +418,7 @@
   <section id="coc">
     <h2><span class="n">06</span>Code of Conduct</h2>
     <p>We follow the <a href="https://fosdem.org/2027/practical/conduct/" rel="noopener">FOSDEM Code of Conduct</a>. In addition, talks that describe circumvention or anonymity should avoid operational details that would endanger specific users in the field.</p>
+    <p>Questions about submitting, preparing or presenting — or want to help run the devroom? Contact the coordinators at <strong>digital-dissident-devroom-manager at fosdem.org</strong>.</p>
     <p><a href="https://raw.githubusercontent.com/aidik/fosdem2027-digital-dissident/refs/heads/main/PROPOSAL.md" rel="noopener">Read the full devroom proposal →</a></p>
   </section>
 
@@ -395,7 +432,7 @@
       It loads fully from <code>file://</code>, hidden services (<code>.onion</code>), nostr (<code>nsite</code> / <code>nostr.build</code>),
       IPFS, or any static host. To mirror it, just save the page and serve it anywhere — life proliferates.
     </div>
-    <p>Digital Dissident devroom · FOSDEM 2027 · Brussels · 30–31 January 2027 · <a href="https://fosdem.org/submit" rel="noopener">Submit a talk (select our devroom!)</a></p>
+    <p>Digital Dissident devroom · FOSDEM 2027 · Brussels · Saturday morning, 30 January 2027 · submissions close 30 November 2026 · <a href="https://fosdem.org/submit" rel="noopener">Submit a talk (select our devroom!)</a></p>
     <p>Background: Conway’s Game of Life, running locally in your browser — a small demonstration that life, digital or otherwise, is resilient and proliferates wherever it can.</p>
   </div>
 </footer>
