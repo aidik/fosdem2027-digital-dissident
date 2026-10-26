@@ -10,7 +10,7 @@
      Safe to host over HTTPS, Tor hidden services, nostr nsite, IPFS, or a USB stick. */
 
   :root {
-    --bg: #060a08;
+    --bg: #000000;
     --fg: #d8e6dd;
     --dim: #8ba398;
     --accent: #6fe3a1;
@@ -53,11 +53,11 @@
     z-index: -1;
     pointer-events: none;
     background: radial-gradient(ellipse 58% 72% at 50% 45%,
-      rgba(5, 9, 7, 0.93) 0%,
-      rgba(5, 9, 7, 0.85) 30%,
-      rgba(5, 9, 7, 0.55) 60%,
-      rgba(5, 9, 7, 0.15) 85%,
-      rgba(5, 9, 7, 0) 100%);
+      rgba(0, 0, 0, 0.93) 0%,
+      rgba(0, 0, 0, 0.85) 30%,
+      rgba(0, 0, 0, 0.55) 60%,
+      rgba(0, 0, 0, 0.15) 85%,
+      rgba(0, 0, 0, 0) 100%);
   }
 
   a { color: var(--accent); text-decoration-color: rgba(111,227,161,.4); }
@@ -207,6 +207,9 @@
   ul.topics { columns: 2; column-gap: 2.5rem; padding-left: 1.2rem; margin: 0; }
   ul.topics li { margin: 0.35rem 0; break-inside: avoid; color: #c2d4c9; font-size: 0.95rem; }
   @media (max-width: 38rem) { ul.topics { columns: 1; } }
+  /* Key dates: one entry per row, so the schedule reads top to bottom */
+  ul.topics.dates { columns: 1; }
+  ul.topics.dates li { margin: 0.5rem 0; }
 
   ul.check { list-style: none; padding-left: 0; }
   ul.check li { padding-left: 1.7rem; position: relative; margin: 0.4rem 0; }
@@ -236,10 +239,12 @@
   .format span { display: block; font-size: 0.9rem; color: #a9c0b1; }
 
   footer {
+    background: var(--panel);
     border-top: 1px solid var(--line);
     padding: 2.5rem 0 3rem;
     font-size: 0.9rem;
     color: var(--dim);
+    backdrop-filter: blur(5px);
   }
   footer a { color: #9fd4b4; }
   .mirror-note { font-family: var(--mono); font-size: 0.82rem; background: rgba(6,12,9,0.6); border: 1px dashed var(--line); border-radius: 10px; padding: 1rem 1.2rem; margin: 1.25rem 0; }
@@ -380,7 +385,7 @@
     </div>
 
     <h3>Important dates</h3>
-    <ul class="topics">
+    <ul class="topics dates">
       <li><strong>30 November 2026</strong> — submission deadline (23:59 UTC)</li>
       <li><strong>7 December 2026</strong> — speakers notified</li>
       <li><strong>14 December 2026</strong> — final schedule announced</li>
@@ -412,7 +417,7 @@
       <li>Nostr</li><li>Fediverse / ActivityPub</li><li>Psiphon</li><li>Reticulum</li>
       <li>mesh networking</li><li>whistleblowing platforms</li><li>censorship measurement researchers</li><li>…and you</li>
     </ul>
-    <p style="margin-top:1.5rem">At FOSDEM 2026 the talks addressing this audience — on Russian censorship circumvention, the NymVPN mixnet, and Delta Chat multi-relay messaging — ran in three different rooms. This devroom exists so that audience and those speakers finally meet in one place.</p>
+    <p style="margin-top:1.5rem">At FOSDEM 2026 the talks addressing this audience — on <a href="https://archive.fosdem.org/2026/schedule/event/LJDUCD-rus-censorship-2026-fosdem/" rel="noopener">Russian censorship circumvention</a>, the <a href="https://archive.fosdem.org/2026/schedule/event/U3UCKS-nym-mixnet/" rel="noopener">NymVPN mixnet</a>, and <a href="https://archive.fosdem.org/2026/schedule/event/3F9VTU-deltachat-chatmail-relays-multi-transport/" rel="noopener">Delta Chat multi-relay messaging</a> — ran in three different rooms. This devroom exists so that audience and those speakers finally meet in one place.</p>
   </section>
 
   <section id="coc">
@@ -589,12 +594,12 @@
         d[p]     = 30; d[p + 1] = 70; d[p + 2] = 55;
         d[p + 3] = Math.min(255, a * 12);
       } else {
-        d[p] = 6; d[p + 1] = 10; d[p + 2] = 8; d[p + 3] = 255;
+        d[p] = 0; d[p + 1] = 0; d[p + 2] = 0; d[p + 3] = 255;
       }
     }
     offctx.putImageData(img, 0, 0);
 
-    ctx.fillStyle = "#060a08";
+    ctx.fillStyle = "#000000";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     // base soft layer
     ctx.globalAlpha = 0.9;
