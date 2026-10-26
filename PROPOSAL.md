@@ -1,31 +1,30 @@
 # FOSDEM 2027 Devroom Proposal: Digital Dissident
 
-> Draft for the FOSDEM 2027 devroom form (deadline: **4 October 2026**).
-> Items marked **[TODO]** need input from the organisers before submitting.
+> The accepted version of the proposal.
 
 ---
 
 ## Proposal title
 
-**Digital Dissident: Building Toolchains for Life Under Digital Repression**
-
-*(Short form: "Digital Dissident Devroom")*
+**Digital Dissident**
 
 ## Session type
 
 Devroom
 
+## Language
+
+en
+
 ## Preferred slot
 
-Half day (any). We can also fill a full day if FOSDEM pairs us with a compatible half-day room.
+Half day (any).
 
 ---
 
 ## Elaborate description
 
-*(For the FOSDEM programme team only. Not public.)*
-
-**The gap.** Privacy and anonymity tools each have a home at FOSDEM: the network, security, decentralised and messaging rooms, and various main-track and lightning talks. Someone living under an authoritarian regime (Russia, Iran, China, Belarus, Myanmar and others) never uses a single tool, though. Their day-to-day security depends on a *chain* of tools that has to hold up end to end:
+Privacy and anonymity tools each have a home at FOSDEM: the network, security, decentralised and messaging rooms, and various main-track and lightning talks. Someone living under an authoritarian regime (Russia, Iran, China, Belarus, Myanmar and others) never uses a single tool, though. Their day-to-day security depends on a *chain* of tools that has to hold up end to end:
 
 1. reaching the network at all (censorship circumvention),
 2. communicating without leaking metadata,
@@ -53,25 +52,18 @@ The weakest link decides the outcome. Talks about one tool rarely cover how it f
 
 **Structure.** A mix of formats to keep a full room engaged across the whole session:
 
-- 20 to 30 minute technical talks (majority)
-- 10 minute lightning talks on field reports and new ideas
-- One or two short panel or "toolchain teardown" sessions, where speakers from several projects walk through a realistic journalist or activist workflow and show where each tool helps or breaks
+- 20 to 30 minute technical talks
 - A closing open discussion on interoperability gaps and shared next steps
 
-**Programme quality.** Organisers will review all submissions on technical merit and fit to the toolchain framing, and will aim for a balance of projects, regions and speakers (established projects, new projects, researchers, people from affected communities). Pure product pitches and marketing talks will be declined. Every talk should include an explicit threat model and an honest account of limitations.
+**Programme quality.** Organisers will review all submissions on technical merit and fit to the toolchain framing, and will aim for a balance of projects, regions and speakers (established projects, new projects, researchers, people from affected communities). Every talk should include an explicit threat model and an honest account of limitations.
 
-**Organisers.** FOSDEM requires at least two named managers who can respond promptly to schedule emails around the 7 December 2026 deadline. We are recruiting co-organisers from last year's speakers and from the projects listed below.
-**[TODO: name at least two managers, with affiliations and contact addresses, before submitting.]**
-
-**Projects and communities we intend to invite** (no commitments yet; we will confirm before the 20 October announcement if possible): Nym (mixnet), Delta Chat / chatmail, SimpleX, the Fediverse (ActivityPub implementations and instance operators), Nostr, Psiphon and other circumvention and VPN providers, plus Tor-ecosystem, Reticulum and mesh-networking projects, whistleblowing and secure-submission platforms, and censorship-measurement researchers. Several of these projects presented at FOSDEM 2026.
+**Projects and communities we intend to invite** (no commitments yet): Nym (mixnet), Delta Chat / chatmail, SimpleX, the Fediverse (ActivityPub implementations and instance operators), Nostr, Psiphon and other circumvention and VPN providers, plus Tor-ecosystem, Reticulum and mesh-networking projects, whistleblowing and secure-submission platforms, and censorship-measurement researchers. Several of these projects presented at FOSDEM 2026.
 
 **Code of Conduct.** We will follow the FOSDEM Code of Conduct. In addition, talks that describe circumvention or anonymity should avoid operational details that would endanger specific users in the field.
 
 ---
 
 ## Draft call for papers
-
-*(Public.)*
 
 ### Digital Dissident Devroom: Call for Participation
 
@@ -133,61 +125,51 @@ The Digital Dissident devroom brings those links together. We want technical tal
 
 - Product pitches and marketing
 - Talks that only work by exposing operational details that would put users at risk
-- Generic privacy talks with no connection to hostile or high-risk environments
 
-**Formats:** 20 to 30 minute talks, 10 minute lightning talks, and short panel or "toolchain teardown" sessions.
+**Formats:** 20 to 30 minute talks
 
 ---
 
 ## Why does this proposal fit FOSDEM?
 
-*(Public.)*
-
 - **Cross-project collaboration in a niche with no home.** FOSDEM favours rooms that bring together many projects in areas that don't otherwise have a space. Censorship-circumvention, anonymity, secure messaging, whistleblowing and hardened-OS projects are currently spread across separate rooms, or missing entirely. This devroom joins them around one shared user need instead of one shared technology.
 - **Community over corporate backing.** The projects involved are mostly small or volunteer-driven, or non-profit, and nearly all are free and open source. They rarely have a conference space of their own.
-- **Proven audience interest.** At FOSDEM 2026, "The Russian Censorship Circumvention, Tom's Traps, and Jerry's VPN" (Vitaly Repin), "NymVPN: The First Real-World Decentralized Noise-Generating Mixnet for Anonymity" (Harry Halpin, Alexis Roussel) and "Multi-relay chat messaging & cryptographic identities with Delta Chat and Chatmail relays" (Holger Krekel, missytake) all addressed this audience, but in different rooms. Delta Chat also presented in 2025 and Nym in 2023. **[TODO: add attendance figures if known.]**
+- **Proven audience interest.** At FOSDEM 2026, "The Russian Censorship Circumvention, Tom's Traps, and Jerry's VPN" (Vitaly Repin), "NymVPN: The First Real-World Decentralized Noise-Generating Mixnet for Anonymity" (Harry Halpin, Alexis Roussel) and "Multi-relay chat messaging & cryptographic identities with Delta Chat and Chatmail relays" (Holger Krekel, missytake) all addressed this audience, but in different rooms. Delta Chat also presented in 2025 and Nym in 2023.
 - **Aligned with FOSDEM's values.** Free software, user freedom and privacy are core FOSDEM themes. A conference held in Brussels, the seat of EU institutions, is a fitting place to discuss the technical reality of digital repression and sovereignty.
 - **Practical outcome.** The toolchain framing should produce concrete results: a shared threat-model vocabulary, documented interoperability gaps, and new collaboration between projects that have never met.
 
+---
+
 ## Submitters' affinity to the topic
 
-*(Public.)*
+**Co-coordinators:** Bogomil Shopov (Бого) and Sebastian Hagens (Sebastix), Václav Navrátil (Aida).
 
-**[TODO: fill in for each organiser. Suggested structure:]**
+**Bogomil Shopov (Бого)** is a Prague-based open source and privacy advocate who has volunteered at FOSDEM and spoken there repeatedly. In 2026 he gave several talks, including "We d-build it, but they didn't come" in the Decentralised Communication devroom, and he has also given a closing talk in the Modern Email devroom. He also contributes to Thunderbird and OpenStreetMap, and spoke at DARK Prague on 3 October 2026 with "ARTivism: Hacking culture to defend privacy".
 
-- Name, role and affiliation
-- Projects you develop, contribute to or operate in this space
-- Experience with at-risk users, NGOs, newsrooms or censorship research
-- Past FOSDEM involvement (speaker, devroom manager, volunteer)
-- Personal connection to the topic, if you wish to share it
+**Sebastian Hagens (Sebastix)** is a free and open source developer and tech consultant from Breda, Netherlands, with a long background in web technology and online privacy (PHP, Symfony, Drupal, JavaScript, Docker). He also does server operations and security work on Debian-based infrastructure, and writes about privacy and the open web. A long-time Drupal community member, he works on decentralised publishing, including the Drupal modules and PHP libraries that let sites syndicate content independently of any single platform. He co-organised a community stand at FOSDEM 2025 and presented "POSSE content with Drupal using Nostr" in the Collaboration and content management devroom at FOSDEM 2026.
+
+**Václav Navrátil (Aida)** is a long-term open source advocate. He has worked on data sovereignty with TrueNAS for over a decade. In his own time he operates a Delta Chat (chatmail) relay and a Nostr web-of-trust relay, writes open source Delta Chat bots, and helps people to circumvent censorship with Psiphon.
+
+---
 
 ## Relevant URLs
 
-*(Public.)*
+- Bogomil Shopov:
+  - https://github.com/bogomil
+  - https://talkweb.eu
+  - https://archive.fosdem.org/2026/schedule/speaker/bogomil_shopov_-_bogo/
+  - https://speak.darkprague.com/dp26/talk/AYB3TT/
+- Sebastian Hagens:
+  - https://github.com/sebastix
+  - https://nostrver.se
+  - https://sebastix.nl/nostr-research-and-development/
+- The talk that sparked the idea for this devroom:
+  - https://fosdem.org/2026/events/attachments/LJDUCD-rus-censorship-2026-fosdem/slides/266923/fosdem-vp_0eoesvl.pdf
+- Václav Navrátil:
+  - https://github.com/aidik/
 
-**[TODO: add real links.]**
-
-- Organiser project pages and repositories
-- [The Russian Censorship Circumvention, Tom's Traps, and Jerry's VPN (FOSDEM 2026)](https://fosdem.org/2026/events/attachments/LJDUCD-rus-censorship-2026-fosdem/slides/266923/fosdem-vp_0eoesvl.pdf)
-- [NymVPN mixnet talk (FOSDEM 2026)](https://archive.fosdem.org/2026/schedule/event/U3UCKS-nym-mixnet/)
-- [Delta Chat multi-relay talk (FOSDEM 2026)](https://archive.fosdem.org/2026/schedule/event/3F9VTU-deltachat-chatmail-relays-multi-transport/)
-- [Delta Chat talk (FOSDEM 2025)](https://archive.fosdem.org/2025/schedule/event/fosdem-2025-5853-delta-chat-from-e-mail-messaging-to-peer-to-peer-realtime-networking/)
-- [FOSDEM 2026 Decentralized Internet and Privacy devroom](https://archive.fosdem.org/2026/schedule/track/decentralized-internet-and-privacy/)
-- Recordings: https://video.fosdem.org/2026/
-- Organiser blog posts or talks on the topic
-- Censorship measurement resources such as OONI, Censored Planet and GFW Report, as background on why this room is needed
+---
 
 ## Special requirements
 
-*(Public.)*
-
-- Standard FOSDEM devroom setup (projector, microphones, streaming and recording).
-- A room large enough for a topic that we expect to be popular, given the audience for last year's talks.
-- Scheduling the room so that it doesn't overlap with the Network, security or Decentralized Internet and Privacy rooms, if possible, so the audiences can attend both.
-
-## Resources
-
-*(Public.)*
-
-- None to upload at this stage.
-- **[Optional]** A one-page overview of the toolchain framing (a diagram of the "get online → communicate → report → publish → device" chain, with the projects at each step) could be added to help reviewers.
+- Scheduling the room so that it doesn't overlap with the Network, Security, or Decentralized Internet and Privacy rooms, if possible, so the audiences can attend both.
