@@ -207,6 +207,9 @@
   ul.topics { columns: 2; column-gap: 2.5rem; padding-left: 1.2rem; margin: 0; }
   ul.topics li { margin: 0.35rem 0; break-inside: avoid; color: #c2d4c9; font-size: 0.95rem; }
   @media (max-width: 38rem) { ul.topics { columns: 1; } }
+  /* Key dates: one entry per row, so the schedule reads top to bottom */
+  ul.topics.dates { columns: 1; }
+  ul.topics.dates li { margin: 0.5rem 0; }
 
   ul.check { list-style: none; padding-left: 0; }
   ul.check li { padding-left: 1.7rem; position: relative; margin: 0.4rem 0; }
@@ -380,7 +383,7 @@
     </div>
 
     <h3>Important dates</h3>
-    <ul class="topics">
+    <ul class="topics dates">
       <li><strong>30 November 2026</strong> — submission deadline (23:59 UTC)</li>
       <li><strong>7 December 2026</strong> — speakers notified</li>
       <li><strong>14 December 2026</strong> — final schedule announced</li>
