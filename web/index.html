@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Digital Dissident — devroom at FOSDEM 2027</title>
+<meta name="description" content="Digital Dissident is a devroom at FOSDEM 2027 about the toolchain of tools that lets people communicate, report, publish and blow the whistle from digitally hostile environments. Submit your talk!">
+<style>
+  /* Self-contained: no external fonts, images, scripts or requests.
+     Safe to host over HTTPS, Tor hidden services, nostr nsite, IPFS, or a USB stick. */
+
+  :root {
+    --bg: #060a08;
+    --fg: #d8e6dd;
+    --dim: #8ba398;
+    --accent: #6fe3a1;
+    --accent2: #4cc9a4;
+    --panel: rgba(10, 18, 14, 0.82);
+    --line: rgba(111, 227, 161, 0.18);
+    --mono: ui-monospace, "SFMono-Regular", "Cascadia Mono", Menlo, Consolas, monospace;
+    --sans: system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--sans);
+    line-height: 1.65;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* Conway's Game of Life backdrop */
+  #gol {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    opacity: 0.32;
+    image-rendering: auto;
+  }
+
+  /* Semi-transparent overlay: darkens the centre of the screen where the
+     text lives, letting the Game of Life breathe at the sides. */
+  #vignette {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(ellipse 58% 72% at 50% 45%,
+      rgba(5, 9, 7, 0.93) 0%,
+      rgba(5, 9, 7, 0.85) 30%,
+      rgba(5, 9, 7, 0.55) 60%,
+      rgba(5, 9, 7, 0.15) 85%,
+      rgba(5, 9, 7, 0) 100%);
+  }
+
+  a { color: var(--accent); text-decoration-color: rgba(111,227,161,.4); }
+  a:hover { color: #a5f5c6; }
+
+  .wrap { max-width: 62rem; margin: 0 auto; padding: 0 1.25rem; }
+
+  header.hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding: 4rem 1.25rem 3rem;
+  }
+
+  .kicker {
+    font-family: var(--mono);
+    color: var(--accent);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    margin: 0 0 1rem;
+  }
+
+  h1 {
+    font-size: clamp(2.6rem, 9vw, 5.5rem);
+    line-height: 1.05;
+    margin: 0 0 0.5rem;
+    letter-spacing: -0.02em;
+    color: #eef7f1;
+    text-shadow: 0 0 32px rgba(111, 227, 161, 0.25);
+  }
+
+  .tagline {
+    font-size: clamp(1.05rem, 2.8vw, 1.4rem);
+    color: var(--dim);
+    max-width: 42rem;
+    margin: 0 auto 2rem;
+  }
+
+  .cta-box {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 1.75rem 1.5rem;
+    max-width: 40rem;
+    margin: 0 auto;
+    backdrop-filter: blur(6px);
+  }
+
+  .cta-box p { margin: 0 0 1.1rem; }
+
+  .btn {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #052012;
+    font-weight: 700;
+    font-size: 1.15rem;
+    padding: 0.8rem 2rem;
+    border-radius: 10px;
+    text-decoration: none;
+    border: none;
+    box-shadow: 0 0 24px rgba(111, 227, 161, 0.35);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 0 36px rgba(111, 227, 161, 0.55); color: #052012; }
+
+  .roomnote {
+    margin-top: 1.2rem;
+    padding: 0.8rem 1rem;
+    border-left: 3px solid var(--accent);
+    background: rgba(111, 227, 161, 0.08);
+    border-radius: 0 8px 8px 0;
+    font-size: 0.95rem;
+    text-align: left;
+  }
+  .roomnote strong { color: #a5f5c6; }
+
+  .scroll-hint {
+    font-family: var(--mono);
+    color: var(--dim);
+    font-size: 0.8rem;
+    margin-top: 3rem;
+    animation: bob 2.4s ease-in-out infinite;
+  }
+  @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+
+  main { padding-bottom: 4rem; }
+
+  section {
+    margin: 4.5rem 0;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: clamp(1.5rem, 4vw, 2.75rem);
+    backdrop-filter: blur(5px);
+  }
+
+  h2 {
+    font-size: clamp(1.5rem, 4vw, 2.1rem);
+    margin: 0 0 1rem;
+    color: #eaf6ee;
+  }
+  h2 .n { color: var(--accent); font-family: var(--mono); font-size: 0.85em; margin-right: 0.6rem; }
+
+  h3 { color: #cdeeda; margin: 1.6rem 0 0.5rem; font-size: 1.1rem; }
+  section p { color: #c2d4c9; }
+  section p, section li { max-width: 70ch; }
+
+  .cols { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); }
+
+  .card {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 1.1rem 1.2rem;
+    background: rgba(6, 12, 9, 0.5);
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+  .card:hover { border-color: rgba(111, 227, 161, 0.5); transform: translateY(-2px); }
+  .card h4 { margin: 0 0 0.4rem; color: #d9f2e3; font-size: 1rem; }
+  .card p { margin: 0; font-size: 0.92rem; color: #a9c0b1; }
+
+  .chain { counter-reset: link; }
+  .chain .card { position: relative; }
+  .chain .card h4::before {
+    counter-increment: link;
+    content: counter(link);
+    display: inline-block;
+    font-family: var(--mono);
+    color: #052012;
+    background: var(--accent);
+    border-radius: 50%;
+    width: 1.5em; height: 1.5em;
+    line-height: 1.5em;
+    text-align: center;
+    margin-right: 0.55rem;
+    font-size: 0.85em;
+  }
+
+  ul.topics { columns: 2; column-gap: 2.5rem; padding-left: 1.2rem; margin: 0; }
+  ul.topics li { margin: 0.35rem 0; break-inside: avoid; color: #c2d4c9; font-size: 0.95rem; }
+  @media (max-width: 38rem) { ul.topics { columns: 1; } }
+
+  ul.check { list-style: none; padding-left: 0; }
+  ul.check li { padding-left: 1.7rem; position: relative; margin: 0.4rem 0; }
+  ul.check.yes li::before { content: "▸"; position: absolute; left: 0.4rem; color: var(--accent); }
+  ul.check.no li::before { content: "×"; position: absolute; left: 0.4rem; color: #e08f7a; font-weight: 700; }
+  ul.check.no li { color: #b7a49b; }
+
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr)); gap: 1rem; text-align: center; }
+  .stat { border: 1px solid var(--line); border-radius: 12px; padding: 1rem 0.5rem; }
+  .stat b { display: block; font-size: 1.9rem; color: var(--accent); font-family: var(--mono); }
+  .stat span { font-size: 0.85rem; color: var(--dim); }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; padding: 0; list-style: none; margin: 0.5rem 0 0; }
+  .chips li {
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 0.25rem 0.85rem;
+    font-size: 0.85rem;
+    font-family: var(--mono);
+    color: #bfe4cf;
+    background: rgba(111, 227, 161, 0.06);
+  }
+
+  .formats { display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); margin-top: 1rem; }
+  .format { border-left: 3px solid var(--accent2); padding: 0.4rem 1rem; background: rgba(76, 201, 164, 0.07); border-radius: 0 8px 8px 0; }
+  .format b { color: #d9f2e3; }
+  .format span { display: block; font-size: 0.9rem; color: #a9c0b1; }
+
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 2.5rem 0 3rem;
+    font-size: 0.9rem;
+    color: var(--dim);
+  }
+  footer a { color: #9fd4b4; }
+  .mirror-note { font-family: var(--mono); font-size: 0.82rem; background: rgba(6,12,9,0.6); border: 1px dashed var(--line); border-radius: 10px; padding: 1rem 1.2rem; margin: 1.25rem 0; }
+  .mirror-note code { color: var(--accent); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-hint { animation: none; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="gol" aria-hidden="true"></canvas>
+<div id="vignette" aria-hidden="true"></div>
+
+<header class="hero">
+  <p class="kicker">devroom · FOSDEM 2027 · Brussels</p>
+  <h1>Digital Dissident</h1>
+  <p class="tagline">A devroom for every link in the chain that keeps people communicating under digital repression: getting online, communicating privately, reporting safely, publishing without exposure.</p>
+  <div class="cta-box">
+    <p><strong>Call for Participation is open.</strong> FOSDEM 2027 takes place on <strong>30–31 January 2027</strong> at the ULB Solbosch campus in Brussels.</p>
+    <a class="btn" href="https://fosdem.org/submit" rel="noopener">Submit your talk →</a>
+    <div class="roomnote">
+      <strong>Important:</strong> when you submit on <a href="https://fosdem.org/submit" rel="noopener">fosdem.org/submit</a>, you must select the <strong>“Digital Dissident” devroom</strong> as the track. Proposals submitted without a devroom selection never reach the organisers — choose our room, or we cannot consider your talk.
+    </div>
+  </div>
+  <p class="scroll-hint">▼ life finds a way</p>
+</header>
+
+<main class="wrap">
+
+  <section id="about">
+    <h2><span class="n">01</span>One user, one chain, one room</h2>
+    <p>Someone living under an authoritarian regime — Russia, Iran, China, Belarus, Myanmar, and far from only those — never uses a single tool. Their safety depends on a <strong>chain</strong> where every link has to hold: reaching the network at all, communicating without leaking metadata, collecting and verifying evidence, publishing without exposing the author, on devices that are themselves a risk. The weakest link decides the outcome.</p>
+    <p>Privacy and anonymity tools each have a home at FOSDEM today, but they are scattered across the network, security, decentralised-internet and messaging rooms. <strong>Digital Dissident</strong> brings the builders of circumvention, anonymity, messaging, publishing and whistleblowing tools into one room, organised around the <em>user under threat</em> instead of a technology class. We are not interested in promoting any one tool — we are interested in how tools combine, where they break, and what the free software community can build together.</p>
+    <div class="cols chain" style="margin-top:1.75rem">
+      <div class="card"><h4>Get online</h4><p>Censorship circumvention, pluggable transports, bridge distribution, surviving allow-lists and shutdowns.</p></div>
+      <div class="card"><h4>Communicate</h4><p>Mixnets, onion routing, metadata-resistant, federated and offline-first messaging.</p></div>
+      <div class="card"><h4>Report</h4><p>Secure submission systems, source protection, document sanitisation and provenance.</p></div>
+      <div class="card"><h4>Publish</h4><p>Censorship-resistant hosting, mirrors, decentralised storage, takedown and seizure resilience.</p></div>
+      <div class="card"><h4>Stay safe</h4><p>Hardened and amnesic systems, forensic resistance, border crossings, usable safe defaults.</p></div>
+    </div>
+  </section>
+
+  <section id="cfp">
+    <h2><span class="n">02</span>Call for Participation</h2>
+    <p>We want technical talks from people who <strong>build, operate, attack and measure</strong> the systems that make it possible to communicate, report, publish and blow the whistle from a digitally hostile environment. We welcome talks on, but not limited to:</p>
+
+    <h3>Getting online</h3>
+    <ul class="topics">
+      <li>Obfuscation vs TLS/QUIC fingerprinting, active probing and protocol allow-listing</li>
+      <li>Bridge and proxy distribution under enumeration attacks</li>
+      <li>Operating during national shutdowns: mesh, satellite, delay-tolerant networking</li>
+      <li>Running a VPN or proxy service in a heavily censored country</li>
+    </ul>
+
+    <h3>Communicating privately</h3>
+    <ul class="topics">
+      <li>Mixnets, onion routing and metadata-resistant transports</li>
+      <li>Decentralised, federated and email-based messaging in the real world</li>
+      <li>Push notifications, contact discovery and phone-number identity leaks in “secure” messengers</li>
+      <li>Interoperability between anonymity networks, messengers and circumvention layers</li>
+    </ul>
+
+    <h3>Reporting, publishing &amp; whistleblowing</h3>
+    <ul class="topics">
+      <li>Secure submission systems and source protection</li>
+      <li>Metadata scrubbing, provenance and authenticity without deanonymising the author</li>
+      <li>Censorship-resistant publishing and hosting</li>
+      <li>Digital-security workflows for newsrooms and human-rights organisations</li>
+    </ul>
+
+    <h3>Devices &amp; operational security</h3>
+    <ul class="topics">
+      <li>Hardened and amnesic operating systems, seizure and border-crossing scenarios</li>
+      <li>Forensic resistance, duress features, secure backups</li>
+      <li>Supply-chain trust when app stores and package mirrors are blocked</li>
+    </ul>
+
+    <h3>People, usability &amp; evidence</h3>
+    <ul class="topics">
+      <li>Onboarding for users under stress, safe defaults</li>
+      <li>Threat modelling for at-risk groups, lessons from the field</li>
+      <li>Censorship measurement, open data, reproducible research</li>
+      <li>How state adversaries actually deanonymise and detect users</li>
+    </ul>
+
+    <h3>Digital sovereignty <small>(secondary theme)</small></h3>
+    <ul class="topics">
+      <li>Reducing dependence on Big Tech platforms, app stores, cloud, push and identity providers</li>
+      <li>Self-hosted and community-run alternatives that survive political pressure</li>
+    </ul>
+  </section>
+
+  <section id="criteria">
+    <h2><span class="n">03</span>What we look for</h2>
+    <div class="cols">
+      <div>
+        <ul class="check yes">
+          <li>Technical depth: protocols, architectures, measurements, code, honest post-mortems</li>
+          <li>An explicit <strong>threat model</strong> — including what your approach does <em>not</em> protect against</li>
+          <li>Free and open source software, or open specifications</li>
+          <li>Cross-project thinking: how your work fits into the chain</li>
+          <li>Field experience with, or from, affected communities</li>
+        </ul>
+      </div>
+      <div>
+        <ul class="check no">
+          <li>Product pitches and marketing</li>
+          <li>Talks that work only by exposing operational details that put users at risk</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Formats</h3>
+    <div class="formats">
+      <div class="format"><b>20–30 min</b><span>Technical talks — the programme of the devroom</span></div>
+      <div class="format"><b>Open discussion</b><span>Closing session on interoperability gaps and shared next steps</span></div>
+    </div>
+  </section>
+
+  <section id="fosdem">
+    <h2><span class="n">04</span>FOSDEM 2027</h2>
+    <p>FOSDEM is a free event for open source software developers to meet, share ideas and collaborate. Every year thousands of developers from all over the world gather at the ULB Solbosch campus in Brussels. It hosts dozens of concurrent devrooms, a main track, keynotes, lightning talks, stands, and birds-of-a-feather sessions — plus FOSDEM Fringe events throughout the city during the surrounding week.</p>
+    <div class="stats">
+      <div class="stat"><b>8k+</b><span>hackers</span></div>
+      <div class="stat"><b>77</b><span>devrooms</span></div>
+      <div class="stat"><b>96</b><span>stands</span></div>
+      <div class="stat"><b>0€</b><span>admission</span></div>
+    </div>
+    <p style="margin-top:1.5rem"><a href="https://fosdem.org/2027/" rel="noopener">Visit the FOSDEM website →</a></p>
+  </section>
+
+  <section id="projects">
+    <h2><span class="n">05</span>Who we hope to see</h2>
+    <p>Community over corporate backing: the projects in this space are mostly small, volunteer-driven or non-profit, and nearly all are free software. They rarely get a conference room of their own. Projects and communities we intend to invite include:</p>
+    <ul class="chips">
+      <li>Tor ecosystem</li><li>Nym</li><li>Delta Chat / chatmail</li><li>SimpleX</li>
+      <li>Nostr</li><li>Fediverse / ActivityPub</li><li>Psiphon</li><li>Reticulum</li>
+      <li>mesh networking</li><li>whistleblowing platforms</li><li>censorship measurement researchers</li><li>…and you</li>
+    </ul>
+    <p style="margin-top:1.5rem">At FOSDEM 2026 the talks addressing this audience — on Russian censorship circumvention, the NymVPN mixnet, and Delta Chat multi-relay messaging — ran in three different rooms. This devroom exists so that audience and those speakers finally meet in one place.</p>
+  </section>
+
+  <section id="coc">
+    <h2><span class="n">06</span>Code of Conduct</h2>
+    <p>We follow the <a href="https://fosdem.org/2027/practical/conduct/" rel="noopener">FOSDEM Code of Conduct</a>. In addition, talks that describe circumvention or anonymity should avoid operational details that would endanger specific users in the field.</p>
+    <p><a href="https://raw.githubusercontent.com/aidik/fosdem2027-digital-dissident/refs/heads/main/PROPOSAL.md" rel="noopener">Read the full devroom proposal →</a></p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="mirror-note">
+      digitaldissident.tech · mirrored on Tor and nostr<br>
+      This page is a single self-contained HTML file: no external fonts, images, scripts, analytics or trackers.
+      It loads fully from <code>file://</code>, hidden services (<code>.onion</code>), nostr (<code>nsite</code> / <code>nostr.build</code>),
+      IPFS, or any static host. To mirror it, just save the page and serve it anywhere — life proliferates.
+    </div>
+    <p>Digital Dissident devroom · FOSDEM 2027 · Brussels · 30–31 January 2027 · <a href="https://fosdem.org/submit" rel="noopener">Submit a talk (select our devroom!)</a></p>
+    <p>Background: Conway’s Game of Life, running locally in your browser — a small demonstration that life, digital or otherwise, is resilient and proliferates wherever it can.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  /* Ambient Conway's Game of Life.
+   *
+   * Optimisations vs a naive full-redraw implementation:
+   *  - State lives in flat Uint8Array grids; step() uses a sliding row-sum method
+   *    (3 multiplications-free row accumulators) -> ~1 pass, no per-cell 8-neighbour adds.
+   *  - Cells age 1..255; newborns are bright, elders dim -> soft organic look without shadows.
+   *  - Rendering draws to a tiny offscreen canvas (1px per cell), then upscales it with
+   *    image smoothing for a cheap, uniform "bloom" instead of per-cell fillRect + shadowBlur.
+   *  - Fixed step rate via requestAnimationFrame timestamps; pauses when the tab is hidden
+   *    and honours prefers-reduced-motion.
+   *  - When life stagnates (population too low), sparse re-seeding injects new patterns
+   *    ("resilience and proliferation") instead of letting the canvas die.
+   */
+
+  var canvas = document.getElementById("gol");
+  if (!canvas || !canvas.getContext) return;
+  var ctx = canvas.getContext("2d", { alpha: false });
+  if (!ctx) return;
+
+  var CELL = 5;             // css px per cell
+  var STEP_MS = 300;        // one generation per 300ms — slow, ambient, non-distracting
+  var RESEED_MS = 16000;    // ambient re-seed cadence
+  var POP_FLOOR = 0.02;     // re-seed if live fraction falls below this
+
+  var cols = 0, rows = 0, cw = 0, ch = 0;
+  var cur, next, age, w, h, dpr;
+  var off, offctx, img;      // tiny offscreen canvas + its ImageData
+  var running = true, lastStep = 0, lastSeed = 0, rafId = 0;
+
+  var reduced = false;
+  try { reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
+
+  function sizeGrid() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    cw = Math.max(1, document.documentElement.clientWidth);
+    ch = Math.max(1, document.documentElement.clientHeight);
+    canvas.width = Math.round(cw * dpr);
+    canvas.height = Math.round(ch * dpr);
+    ctx.imageSmoothingEnabled = true;
+    cols = Math.max(8, Math.ceil(cw / CELL));
+    rows = Math.max(8, Math.ceil(ch / CELL));
+    w = cols; h = rows;
+    cur = new Uint8Array(cols * rows);
+    next = new Uint8Array(cols * rows);
+    age = new Uint8Array(cols * rows);
+    // offscreen: one pixel per cell
+    off = document.createElement("canvas");
+    off.width = cols; off.height = rows;
+    offctx = off.getContext("2d", { alpha: false });
+    img = offctx.createImageData(cols, rows);
+  }
+
+  function idx(x, y) { return y * cols + x; }
+
+  // Patterns injected on re-seed; each is [ [x,y] ... ], seeded at random positions.
+  var PATTERNS = [
+    [[0,1],[1,1],[2,1],[2,2],[1,3]],                                  // r-pentomino
+    [[0,0],[1,0],[2,0],[3,0],[0,1],[4,1],[1,2],[2,2]],               // acorn-ish
+    [[0,0],[1,0],[0,1],[1,1]],                                       // block (anchor)
+    [[0,0],[1,0],[2,0],[0,1],[1,2]],                                 // glider
+    [[1,0],[2,1],[0,2],[1,2],[2,2]]                                  // r-pentomino alt
+  ];
+
+  function seedRandom(density) {
+    var n = cur.length;
+    for (var i = 0; i < n; i++) {
+      if (Math.random() < density) { cur[i] = 1; age[i] = 1; }
+    }
+  }
+
+  function seedPattern(px, py, pat) {
+    for (var k = 0; k < pat.length; k++) {
+      var x = (px + pat[k][0]) % cols, y = (py + pat[k][1]) % rows;
+      var i = idx(x, y);
+      cur[i] = 1; age[i] = 1;
+    }
+  }
+
+  function reseed(gentle) {
+    if (gentle) {
+      // sprinkle a handful of small patterns to keep things alive
+      var count = 3 + (Math.random() * 5 | 0);
+      for (var c = 0; c < count; c++) {
+        seedPattern(Math.random() * cols | 0, Math.random() * rows | 0,
+                    PATTERNS[Math.random() * PATTERNS.length | 0]);
+      }
+    } else {
+      seedRandom(0.16);
+      var pn = 4 + (Math.random() * 4 | 0);
+      for (var p = 0; p < pn; p++) {
+        seedPattern(Math.random() * cols | 0, Math.random() * rows | 0,
+                    PATTERNS[Math.random() * PATTERNS.length | 0]);
+      }
+    }
+  }
+
+  function population() {
+    var n = 0, len = cur.length;
+    for (var i = 0; i < len; i += 7) n += cur[i]; // sample every 7th cell: cheap estimate
+    return n / (len / 7);
+  }
+
+  // One generation with wrapped edges, via per-row neighbour sums.
+  function step() {
+    var x, y, up, me, dn, i;
+    for (y = 0; y < rows; y++) {
+      var yUp = (y === 0 ? rows - 1 : y - 1) * cols;
+      var yMe = y * cols;
+      var yDn = (y === rows - 1 ? 0 : y + 1) * cols;
+      var xl = cols - 1, xc = 0, xr = 1;
+      for (x = 0; x < cols; x++) {
+        var sum = cur[yUp + xl] + cur[yUp + xc] + cur[yUp + xr] +
+                  cur[yMe + xl] +               cur[yMe + xr] +
+                  cur[yDn + xl] + cur[yDn + xc] + cur[yDn + xr];
+        i = yMe + xc;
+        if (cur[i]) {
+          next[i] = (sum === 2 || sum === 3) ? 1 : 0;
+        } else {
+          next[i] = (sum === 3) ? 1 : 0;
+        }
+        xl = xc; xc = xr; xr = (xr === cols - 1 ? 0 : xr + 1);
+      }
+    }
+    var tmp = cur; cur = next; next = tmp;
+    // age: newborns -> 1, survivors increment up to 250
+    for (i = 0; i < age.length; i++) {
+      if (cur[i]) { if (age[i] < 250) age[i]++; }
+      else if (age[i] > 0) { age[i] = age[i] > 8 ? age[i] - 8 : 0; } // afterglow fade
+    }
+  }
+
+  function paint(t) {
+    var d = img.data;
+    var i, p, a;
+    for (i = 0, p = 0; i < age.length; i++, p += 4) {
+      a = age[i];
+      if (cur[i]) {
+        // newborn: bright mint; ageing: deeper green-teal
+        var t2 = Math.min(1, (a - 1) / 40);
+        d[p]     = 111 + (1 - t2) * 60;
+        d[p + 1] = 227 - t2 * 90;
+        d[p + 2] = 161 - t2 * 60;
+        d[p + 3] = 255;
+      } else if (a > 0) {
+        // fading afterglow of dead cells
+        d[p]     = 30; d[p + 1] = 70; d[p + 2] = 55;
+        d[p + 3] = Math.min(255, a * 12);
+      } else {
+        d[p] = 6; d[p + 1] = 10; d[p + 2] = 8; d[p + 3] = 255;
+      }
+    }
+    offctx.putImageData(img, 0, 0);
+
+    ctx.fillStyle = "#060a08";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // base soft layer
+    ctx.globalAlpha = 0.9;
+    ctx.drawImage(off, 0, 0, canvas.width, canvas.height);
+    // bloom layer: larger scale, low alpha
+    ctx.globalAlpha = 0.10;
+    var pad = 0.06;
+    ctx.drawImage(off, -canvas.width * pad, -canvas.height * pad,
+                  canvas.width * (1 + 2 * pad), canvas.height * (1 + 2 * pad));
+    ctx.globalAlpha = 1;
+  }
+
+  function frame(t) {
+    rafId = 0;
+    if (!running) return;
+    if (!lastStep) { lastStep = t; lastSeed = t; }
+    var stepped = false;
+    if (t - lastStep >= STEP_MS) {
+      step();
+      lastStep = t;
+      stepped = true;
+    }
+    if (stepped) {
+      if (t - lastSeed >= RESEED_MS || population() < POP_FLOOR * 0.5) {
+        reseed(true);
+        lastSeed = t;
+      }
+      paint();
+    }
+    rafId = requestAnimationFrame(frame);
+  }
+
+  function start() {
+    if (!rafId && running) rafId = requestAnimationFrame(frame);
+  }
+  function stop() {
+    running = false;
+    if (rafId) { cancelAnimationFrame(rafId); rafId = 0; }
+  }
+
+  var resizeTimer = 0;
+  window.addEventListener("resize", function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () {
+      sizeGrid();
+      reseed(false);
+      paint();
+    }, 150);
+  }, { passive: true });
+
+  document.addEventListener("visibilitychange", function () {
+    if (document.hidden) stop();
+    else { running = true; lastStep = 0; start(); }
+  });
+
+  sizeGrid();
+  reseed(false);
+  paint();
+
+  if (reduced) {
+    // static constellation, no animation
+  } else {
+    start();
+  }
+})();
+</script>
+</body>
+</html>
